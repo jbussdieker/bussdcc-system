@@ -11,11 +11,14 @@ from bussdcc_system.model import DeviceSpec
 
 from .... import message
 
+from .resolver import RuntimeRefResolver
+
 
 class SystemDevicesPlugin(BaseWebPlugin):
     name = "system-devices"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
+        resolver = RuntimeRefResolver(ctx)
         bp = Blueprint(
             "bussdcc_system_devices",
             __name__,
@@ -95,7 +98,7 @@ class SystemDevicesPlugin(BaseWebPlugin):
                     flash("Device not available", "warning")
                     return redirect(url_for("bussdcc_system_devices.index"))
 
-                tree = formtree.build(definition.config_class)
+                tree = formtree.build(definition.config_class, ref_resolver=resolver)
                 return render_template(
                     "bussdcc_system/devices/new_config.html",
                     name=name,
@@ -126,7 +129,7 @@ class SystemDevicesPlugin(BaseWebPlugin):
 
             definition = registry_entry.definition
             device_cfg = load_value(definition.config_class, spec.config)
-            tree = formtree.build(device_cfg)
+            tree = formtree.build(device_cfg, ref_resolver=resolver)
 
             return render_template(
                 "bussdcc_system/devices/show.html",
@@ -143,7 +146,7 @@ class SystemDevicesPlugin(BaseWebPlugin):
                 flash("Device not available", "warning")
                 return redirect(url_for("bussdcc_system_devices.index"))
 
-            tree = formtree.build(definition.config_class)
+            tree = formtree.build(definition.config_class, ref_resolver=resolver)
             data = formtree.unflatten(tree, request.form)
             cfg = load_value(definition.config_class, data)
             ctx.emit(
@@ -173,7 +176,7 @@ class SystemDevicesPlugin(BaseWebPlugin):
                 return redirect(url_for("bussdcc_system_devices.index"))
 
             definition = registry_entry.definition
-            tree = formtree.build(definition.config_class)
+            tree = formtree.build(definition.config_class, ref_resolver=resolver)
             tree = formtree.validate(tree, request.form)
 
             if tree.errors > 0:
