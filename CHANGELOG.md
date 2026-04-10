@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.38.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.37.0...v0.38.0) (2026-04-10)
+
+
+### Features
+
+* **web:** integrate RuntimeRefResolver for dynamic form building ([47ed8f7](https://github.com/jbussdieker/bussdcc-system/commit/47ed8f787b352b60712f80e9188ccf748f64e4fa))
+
 ## [0.37.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.36.0...v0.37.0) (2026-04-09)
 
 
