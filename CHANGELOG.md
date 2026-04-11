@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.39.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.38.0...v0.39.0) (2026-04-11)
+
+
+### Features
+
+* **dependencies:** update dependencies and add stats extra ([32e5bbb](https://github.com/jbussdieker/bussdcc-system/commit/32e5bbb8ddf79c0dcde81d7625e3e8f750b60fd8))
+
 ## [0.38.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.37.0...v0.38.0) (2026-04-10)
 
 
