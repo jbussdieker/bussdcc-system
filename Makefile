@@ -1,7 +1,7 @@
 .PHONY: setup check typecheck lint format clean
 
 setup: .venv/bin/python
-	.venv/bin/python -m pip install -e .[dev,hardware]
+	.venv/bin/python -m pip install -e .[dev,stats,hardware]
 run:
 	.venv/bin/bussdcc-system run --web
 record: .venv/bin/python
