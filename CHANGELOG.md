@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.40.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.39.0...v0.40.0) (2026-04-13)
+
+
+### Features
+
+* **dependencies:** downgrade psutil version in stats extra ([40d9141](https://github.com/jbussdieker/bussdcc-system/commit/40d9141c719cdc1f18858f7375a9552118136c69))
+
 ## [0.39.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.38.0...v0.39.0) (2026-04-11)
 
 
