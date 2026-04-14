@@ -21,6 +21,7 @@ class SystemServicesPlugin(BaseWebPlugin):
         def index() -> Any:
             supervisor = ctx.runtime.services
             services = supervisor.statuses()
+            services = sorted(services, key=lambda s: s.name)
 
             return render_template(
                 "bussdcc_system/services/index.html", services=services

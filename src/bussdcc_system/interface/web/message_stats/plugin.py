@@ -1,9 +1,12 @@
-from typing import Any
+from typing import Any, Iterable
 
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template
+from flask_socketio import SocketIO
 
-from bussdcc import ContextProtocol
+from bussdcc import ContextProtocol, Event, Message
 from bussdcc_framework.web import BaseWebPlugin, FlaskApp, WebPlugin
+from bussdcc import message as bussdcc_message
+from bussdcc_framework import message as framework_message
 
 
 class SystemMessageStatsPlugin(BaseWebPlugin):
@@ -22,10 +25,30 @@ class SystemMessageStatsPlugin(BaseWebPlugin):
             message_stats = ctx.state.get("runtime_info", {})
 
             return render_template(
-                "bussdcc_system/message_stats/index.html", message_stats=message_stats
+                "bussdcc_system/message_stats/index.html",
+                message_stats=message_stats,
             )
 
         app.register_blueprint(bp)
+
+    def event_types(self) -> Iterable[type[Message]]:
+        return (
+            bussdcc_message.RuntimeBooted,
+            framework_message.FrameworkBooted,
+            Message,
+        )
+
+    def handle_event(
+        self,
+        app: FlaskApp,
+        socketio: SocketIO,
+        ctx: ContextProtocol,
+        evt: Event[Message],
+    ) -> None:
+        socketio.emit(
+            "ui.system.message_stats.updated",
+            ctx.state.get("runtime_info", {}),
+        )
 
 
 plugin: WebPlugin = SystemMessageStatsPlugin()

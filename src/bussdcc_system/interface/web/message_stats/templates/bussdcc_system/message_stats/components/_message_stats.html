@@ -1,18 +1,47 @@
-{% macro render_tree(node) %}
-<ul>
-{% for key, value in node.items() %}
-<li>
-    {% if value is mapping %}
-        <details open>
-            <summary>{{ key }}</summary>
-            {{ render_tree(value) }}
-        </details>
-    {% else %}
-        {{ key }}: {{ value }}
-    {% endif %}
-</li>
-{% endfor %}
-</ul>
-{% endmacro %}
+<div id="message-stats-tree"></div>
 
-{{ render_tree(message_stats) }}
+<script>
+  function escapeHtml(value) {
+    return String(value)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
+
+  function isPlainObject(value) {
+    return value && typeof value === "object" && !Array.isArray(value);
+  }
+
+  function sortedEntries(node) {
+    return Object.entries(node).sort(([a], [b]) => a.localeCompare(b));
+  }
+
+  function renderTree(node) {
+    const items = sortedEntries(node).map(([key, value]) => {
+      if (isPlainObject(value)) {
+        return `
+          <li>
+            <details open>
+              <summary>${escapeHtml(key)}</summary>
+              ${renderTree(value)}
+            </details>
+          </li>
+        `;
+      }
+
+      return `<li>${escapeHtml(key)}: ${escapeHtml(value)}</li>`;
+    });
+
+    return `<ul>${items.join("")}</ul>`;
+  }
+
+  const initialMessageStats = {{ message_stats | tojson }};
+  const messageStatsRoot = document.getElementById("message-stats-tree");
+  messageStatsRoot.innerHTML = renderTree(initialMessageStats || {});
+
+  window.BussDCC.on("ui.system.message_stats.updated", (messageStats) => {
+    messageStatsRoot.innerHTML = renderTree(messageStats || {});
+  });
+</script>
