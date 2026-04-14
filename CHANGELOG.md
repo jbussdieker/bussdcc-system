@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.43.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.42.0...v0.43.0) (2026-04-14)
+
+
+### Features
+
+* **web:** enhance message stats and services plugins ([be8fe73](https://github.com/jbussdieker/bussdcc-system/commit/be8fe730aca24ce69e1e89c731386846efcf0754))
+
 ## [0.42.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.41.0...v0.42.0) (2026-04-14)
 
 
