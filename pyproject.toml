@@ -4,7 +4,8 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "bussdcc-framework ~= 0.45.0",
+    "bussdcc-framework ~= 0.46.0",
+    "humanize ~= 4.15.0",
 ]
 description = "bussdcc-system"
 readme = "README.md"
@@ -45,7 +46,7 @@ bussdcc-system = "bussdcc_system.cli:main"
 
 [project.optional-dependencies]
 hardware = [
-    "bussdcc-hardware ~= 0.29.0",
+    "bussdcc-hardware ~= 0.31.0",
 ]
 stats = [
     "psutil ~= 7.0.0",

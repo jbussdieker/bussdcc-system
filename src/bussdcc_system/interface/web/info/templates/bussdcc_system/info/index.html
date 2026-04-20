@@ -14,7 +14,17 @@
       <dd class="text-break">{{ system_identity.model or "—"}}</dd>
       <dt>Serial</dt>
       <dd class="text-break">{{ system_identity.serial or "—" }}</dd>
+      <dt>Uptime</dt>
+      <dd id="uptime" class="text-break">{{ uptime or "—" }}</dd>
     </dl>
   </div>
 </div>
+
+<script>
+  const uptimeEl = document.getElementById("uptime");
+
+  window.BussDCC.on("ui.system.uptime.updated", (payload) => {
+    uptimeEl.innerHTML = payload
+  });
+</script>
 {% endblock %}

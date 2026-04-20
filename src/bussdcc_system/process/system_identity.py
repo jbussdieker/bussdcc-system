@@ -19,3 +19,6 @@ class SystemIdentityProcess(Process):
 
         elif isinstance(payload, message.SystemIdentityEvent):
             ctx.state.set("system.identity", payload)
+
+        elif isinstance(payload, message.UptimeUpdate):
+            ctx.state.set("system.uptime", payload.uptime)

@@ -8,6 +8,7 @@ from .. import message
 
 class SystemIdentityService(Service):
     name = "system_identity"
+    interval = 1.0
 
     def start(self, ctx: ContextProtocol) -> None:
         hostname = socket.gethostname()
@@ -17,6 +18,16 @@ class SystemIdentityService(Service):
         ctx.emit(
             message.SystemIdentityEvent(hostname=hostname, model=model, serial=serial)
         )
+
+    def _emit_uptime(self, ctx: ContextProtocol) -> None:
+        ctx.emit(
+            message.UptimeUpdate(
+                uptime=ctx.clock.uptime(),
+            )
+        )
+
+    def tick(self, ctx: ContextProtocol) -> None:
+        self._emit_uptime(ctx)
 
     def _read(self, path: str) -> str | None:
         try:

@@ -5,6 +5,11 @@ from bussdcc import Message
 
 
 @dataclass(slots=True, frozen=True)
+class UptimeUpdate(Message):
+    uptime: float
+
+
+@dataclass(slots=True, frozen=True)
 class MemoryUsageUpdate(Message):
     total: int
     used: int
