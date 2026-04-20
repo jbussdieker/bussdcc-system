@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.44.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.43.0...v0.44.0) (2026-04-20)
+
+
+### Features
+
+* **web, dependencies:** add system uptime display and update dependencies ([f10bf00](https://github.com/jbussdieker/bussdcc-system/commit/f10bf0096632c1b7afd096fdf4effad8897ffe09))
+
 ## [0.43.0](https://github.com/jbussdieker/bussdcc-system/compare/v0.42.0...v0.43.0) (2026-04-14)
 
 
